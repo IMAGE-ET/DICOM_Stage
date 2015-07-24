@@ -13,7 +13,7 @@ FenAdmin::FenAdmin():
   m_pageReglagesDicom(new QGroupBox("Réglages DICOM", m_mainWidget)),
 
   //logs
-  m_pageLogs(new QGroupBox("LOGS", m_mainWidget)),
+  m_pageLogs(new QGroupBox("Logs", m_mainWidget)),
 
   //sauvegarder
   m_pageSauvegarder(new QGroupBox("Sauvegarder", m_mainWidget))
@@ -234,13 +234,12 @@ void FenAdmin::_setupLogs()
 //sauvegarder
 void FenAdmin::_setupSauvegarder()
 {
-  QPushButton *bouton= new QPushButton("Sauvegarder", m_pageSauvegarder);
-  QPushButton *autreBouton = new QPushButton("Charger configuration", m_pageSauvegarder);
-  autreBouton->move(100, 0);
+  QVBoxLayout * layoutSauvegarder = new QVBoxLayout(m_pageSauvegarder);
+  layoutSauvegarder->setAlignment(Qt::AlignTop);
 
-  QVBoxLayout *vbox4 = new QVBoxLayout(m_pageSauvegarder);
-  vbox4->addWidget(bouton);
-  vbox4->addWidget(autreBouton);
+  QPushButton * boutonSauvegarder = new QPushButton("Sauvegarder", m_pageSauvegarder);
+  layoutSauvegarder->addWidget(boutonSauvegarder);
 
-  m_pageSauvegarder->setLayout(vbox4);
+  QPushButton * boutonCharger = new QPushButton("Charger configuration", m_pageSauvegarder);
+  layoutSauvegarder->addWidget(boutonCharger);
 }
