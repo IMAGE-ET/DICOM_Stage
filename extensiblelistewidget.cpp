@@ -19,10 +19,17 @@ ExtensibleListeWidget::ExtensibleListeWidget(QString const& placeholder, QString
   layout->addWidget(m_button,1,1);
 }
 
+QString ExtensibleListeWidget::getItem() const
+{
+  return m_combobox->currentText();
+}
+
 void ExtensibleListeWidget::_addItemInLineEdit()
 {
   m_items.append(m_lineedit->text());
   m_lineedit->clear();
+  _loadCombobox();
+  m_combobox->setCurrentIndex(m_items.length() - 1);
 }
 
 void ExtensibleListeWidget::_loadCombobox()

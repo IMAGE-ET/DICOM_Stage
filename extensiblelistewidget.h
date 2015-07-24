@@ -16,8 +16,7 @@ class ExtensibleListeWidget : public QWidget
 public:
   explicit ExtensibleListeWidget(QString const& placeholder, QStringList items, QWidget *parent = 0);
 
-signals:
-  void itemSelected(QString item);
+  QString getItem() const;
 
 private slots:
   void _addItemInLineEdit();
