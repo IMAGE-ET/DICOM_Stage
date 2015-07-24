@@ -22,18 +22,18 @@ FenAdmin::FenAdmin()
   onglets->setGeometry(30, 20, 600, 500);
 
   // 2 : Création des pages, en utilisant un widget parent pour contenir chacune des pages
-  QWidget *page1 = new QWidget;
-  QWidget *page2 = new QWidget;
-  QWidget *page3 = new QWidget;
-  QLabel *page4 = new QLabel;
+  QWidget *page1 = new QWidget(this);
+  QWidget *page2 = new QWidget(this);
+  QWidget *page3 = new QWidget(this);
+  QLabel *page4 = new QLabel(this);
 
   // 3 : Création du contenu
 
   // Page 1 = Réglages généraux
 
   //Site
-  QLineEdit *lineEdit1 = new QLineEdit("Nom du Site");
-  QLineEdit *lineEdit2 = new QLineEdit("Adresse");
+  QLineEdit *lineEdit1 = new QLineEdit("Nom du Site", page1);
+  QLineEdit *lineEdit2 = new QLineEdit("Adresse", page1);
 
 
   //Liste Opérateurs
@@ -43,7 +43,7 @@ FenAdmin::FenAdmin()
   listeOperateurs->addItem("Monsieur X");
   listeOperateurs->addItem("Madame Y");
 
-  QLineEdit *lineEditOp = new QLineEdit("Ajouter un Opérateur");
+  QLineEdit *lineEditOp = new QLineEdit("Ajouter un Opérateur", page1);
 
   //Liste Prescripteurs
   QLabel *prescripteur = new QLabel(page1);
@@ -52,7 +52,7 @@ FenAdmin::FenAdmin()
   listePrescripteurs->addItem("Monsieur X");
   listePrescripteurs->addItem("Madame Y");
 
-  QLineEdit *lineEditPr = new QLineEdit("Ajouter un Prescripteur");
+  QLineEdit *lineEditPr = new QLineEdit("Ajouter un Prescripteur", page1);
 
   //Liste Réalisateurs
   QLabel *realisateur = new QLabel(page1);
@@ -79,12 +79,12 @@ FenAdmin::FenAdmin()
   listeEtat ->addItem("Repos");
   listeEtat ->addItem("Contraction");
   listeEtat ->addItem("Extention");
-  QLineEdit *lineEditEtat = new QLineEdit("Ajouter un Etat");
+  QLineEdit *lineEditEtat = new QLineEdit("Ajouter un Etat", page1);
 
   //localisation
-  QLabel *localisation = new QLabel(page2);
+  QLabel *localisation = new QLabel(page1);
   localisation->setText("Définir la localisation de l'examen :");
-  QComboBox *listeLoc = new QComboBox(page2);
+  QComboBox *listeLoc = new QComboBox(page1);
   listeLoc->addItem("Bras");
   listeLoc->addItem("Molet");
   listeLoc->addItem("Ventre");
@@ -119,8 +119,8 @@ FenAdmin::FenAdmin()
 
   // Page 2 = Réglages DICOM
 
-  QLineEdit *lineEditIP = new QLineEdit("Indiquez adresse IP");
-  QLineEdit *lineEditPort = new QLineEdit("Indiquer le port DICOM");
+  QLineEdit *lineEditIP = new QLineEdit("Indiquez adresse IP", page2);
+  QLineEdit *lineEditPort = new QLineEdit("Indiquer le port DICOM", page2);
   QLabel *syntaxe = new QLabel(page2);
   syntaxe->setText("Choisir la syntaxe de transfert :");
   QComboBox *listeSyntaxe = new QComboBox(page2);
@@ -130,7 +130,7 @@ FenAdmin::FenAdmin()
   listeSyntaxe ->addItem("Explicit big Endian");
 
 
-  QVBoxLayout *vbox2 = new QVBoxLayout;
+  QVBoxLayout *vbox2 = new QVBoxLayout(page2);
   vbox2->addWidget(lineEditIP);
   vbox2->addWidget(lineEditPort);
   vbox2->addWidget(syntaxe);
@@ -146,17 +146,17 @@ FenAdmin::FenAdmin()
         connect(timer, SIGNAL(timeout()), this, SLOT(upLabel()));
         timer->start(1000);*/
 
-  QVBoxLayout *vbox3 = new QVBoxLayout;
+  QVBoxLayout *vbox3 = new QVBoxLayout(page3);
   vbox3->addWidget(texttest);
 
 
 
   //page 4 = Sauvegarder
-  QPushButton *bouton= new QPushButton("Sauvegarder");
-  QPushButton *autreBouton = new QPushButton("Charger configuration");
+  QPushButton *bouton= new QPushButton("Sauvegarder", page4);
+  QPushButton *autreBouton = new QPushButton("Charger configuration", page4);
   autreBouton->move(100, 0);
 
-  QVBoxLayout *vbox4 = new QVBoxLayout;
+  QVBoxLayout *vbox4 = new QVBoxLayout(page4);
   vbox4->addWidget(bouton);
   vbox4->addWidget(autreBouton);
 
