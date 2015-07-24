@@ -1,7 +1,18 @@
 
 #include "fenadmin.h"
 
-FenAdmin::FenAdmin()
+FenAdmin::FenAdmin():
+  //réglages généraux
+  m_pageReglagesGeneraux(new QWidget(this)),
+
+  //réglages DICOM
+  m_pageReglagesDicom(new QWidget(this)),
+
+  //logs
+  m_pageLogs(new QWidget(this)),
+
+  //sauvegarder
+  m_pageSauvegarder(new QWidget(this))
 {
   //title name
   setWindowTitle("Interface Administrateur");
@@ -21,77 +32,87 @@ FenAdmin::FenAdmin()
   QTabWidget *onglets = new QTabWidget(zoneCentrale);
   onglets->setGeometry(30, 20, 600, 500);
 
-  // 2 : Création des pages, en utilisant un widget parent pour contenir chacune des pages
-  QWidget *page1 = new QWidget(this);
-  QWidget *page2 = new QWidget(this);
-  QWidget *page3 = new QWidget(this);
-  QLabel *page4 = new QLabel(this);
-
   // 3 : Création du contenu
 
-  // Page 1 = Réglages généraux
+  _setupReglagesGeneraux();
+  _setupReglagesDicom();
+  _setupLogs();
+  _setupSauvegarder();
 
+  // 4 : ajouter les onglets au QTabWidget, en indiquant la page qu'ils contiennent
+  onglets->addTab(m_pageReglagesGeneraux, "Réglages généraux");
+  onglets->addTab(m_pageReglagesDicom, "Réglages DICOM");
+  onglets->addTab(m_pageLogs, "LOGS");
+  onglets->addTab(m_pageSauvegarder, "Sauvegarder");
+
+  setCentralWidget(zoneCentrale);
+
+}
+
+//réglages généraux
+void FenAdmin::_setupReglagesGeneraux()
+{
   //Site
-  QLineEdit *lineEdit1 = new QLineEdit("Nom du Site", page1);
-  QLineEdit *lineEdit2 = new QLineEdit("Adresse", page1);
+  QLineEdit *lineEdit1 = new QLineEdit("Nom du Site", m_pageReglagesGeneraux);
+  QLineEdit *lineEdit2 = new QLineEdit("Adresse", m_pageReglagesGeneraux);
 
 
   //Liste Opérateurs
-  QLabel *operateur = new QLabel(page1);
+  QLabel *operateur = new QLabel(m_pageReglagesGeneraux);
   operateur->setText("Liste des Opérateurs");
-  QComboBox *listeOperateurs = new QComboBox(page1);
+  QComboBox *listeOperateurs = new QComboBox(m_pageReglagesGeneraux);
   listeOperateurs->addItem("Monsieur X");
   listeOperateurs->addItem("Madame Y");
 
-  QLineEdit *lineEditOp = new QLineEdit("Ajouter un Opérateur", page1);
+  QLineEdit *lineEditOp = new QLineEdit("Ajouter un Opérateur", m_pageReglagesGeneraux);
 
   //Liste Prescripteurs
-  QLabel *prescripteur = new QLabel(page1);
+  QLabel *prescripteur = new QLabel(m_pageReglagesGeneraux);
   prescripteur->setText("Liste des Prescripteurs");
-  QComboBox *listePrescripteurs = new QComboBox(page1);
+  QComboBox *listePrescripteurs = new QComboBox(m_pageReglagesGeneraux);
   listePrescripteurs->addItem("Monsieur X");
   listePrescripteurs->addItem("Madame Y");
 
-  QLineEdit *lineEditPr = new QLineEdit("Ajouter un Prescripteur", page1);
+  QLineEdit *lineEditPr = new QLineEdit("Ajouter un Prescripteur", m_pageReglagesGeneraux);
 
   //Liste Réalisateurs
-  QLabel *realisateur = new QLabel(page1);
+  QLabel *realisateur = new QLabel(m_pageReglagesGeneraux);
   realisateur->setText("Liste des Réalisateurs");
-  QComboBox *listeRealisateurs = new QComboBox(page1);
+  QComboBox *listeRealisateurs = new QComboBox(m_pageReglagesGeneraux);
   listeRealisateurs->addItem("Monsieur X");
   listeRealisateurs->addItem("Madame Y");
 
   QLineEdit *lineEditReal = new QLineEdit("Ajouter un Réalisateur");
 
   //Positions patient
-  QLabel *position = new QLabel(page1);
+  QLabel *position = new QLabel(m_pageReglagesGeneraux);
   position->setText("Liste des Positions Patient");
-  QComboBox *listePosition = new QComboBox(page1);
+  QComboBox *listePosition = new QComboBox(m_pageReglagesGeneraux);
   listePosition->addItem("Debout");
   listePosition->addItem("Allongé");
 
   QLineEdit *lineEditPos = new QLineEdit("Ajouter une Position Patient");
 
   //Etats
-  QLabel *etat = new QLabel(page1);
+  QLabel *etat = new QLabel(m_pageReglagesGeneraux);
   etat->setText("Liste des Etats");
-  QComboBox *listeEtat = new QComboBox(page1);
+  QComboBox *listeEtat = new QComboBox(m_pageReglagesGeneraux);
   listeEtat ->addItem("Repos");
   listeEtat ->addItem("Contraction");
   listeEtat ->addItem("Extention");
-  QLineEdit *lineEditEtat = new QLineEdit("Ajouter un Etat", page1);
+  QLineEdit *lineEditEtat = new QLineEdit("Ajouter un Etat", m_pageReglagesGeneraux);
 
   //localisation
-  QLabel *localisation = new QLabel(page1);
+  QLabel *localisation = new QLabel(m_pageReglagesGeneraux);
   localisation->setText("Définir la localisation de l'examen :");
-  QComboBox *listeLoc = new QComboBox(page1);
+  QComboBox *listeLoc = new QComboBox(m_pageReglagesGeneraux);
   listeLoc->addItem("Bras");
   listeLoc->addItem("Molet");
   listeLoc->addItem("Ventre");
   QLineEdit *lineEditLoc = new QLineEdit("Ajouter une localisation");
 
 
-  QVBoxLayout *vbox1 = new QVBoxLayout;
+  QVBoxLayout *vbox1 = new QVBoxLayout(m_pageReglagesGeneraux);
   vbox1->addWidget(lineEdit1);
   vbox1->addWidget(lineEdit2);
   vbox1->addWidget(operateur);
@@ -115,61 +136,55 @@ FenAdmin::FenAdmin()
 
 
 
-  page1->setLayout(vbox1);
+  m_pageReglagesGeneraux->setLayout(vbox1);
+}
 
-  // Page 2 = Réglages DICOM
-
-  QLineEdit *lineEditIP = new QLineEdit("Indiquez adresse IP", page2);
-  QLineEdit *lineEditPort = new QLineEdit("Indiquer le port DICOM", page2);
-  QLabel *syntaxe = new QLabel(page2);
+//réglages DICOM
+void FenAdmin::_setupReglagesDicom()
+{
+  QLineEdit *lineEditIP = new QLineEdit("Indiquez adresse IP", m_pageReglagesDicom);
+  QLineEdit *lineEditPort = new QLineEdit("Indiquer le port DICOM", m_pageReglagesDicom);
+  QLabel *syntaxe = new QLabel(m_pageReglagesDicom);
   syntaxe->setText("Choisir la syntaxe de transfert :");
-  QComboBox *listeSyntaxe = new QComboBox(page2);
+  QComboBox *listeSyntaxe = new QComboBox(m_pageReglagesDicom);
   listeSyntaxe ->addItem("Implicit little Endian");
   listeSyntaxe ->addItem("Implicit big Endian");
   listeSyntaxe ->addItem("Explicit little Endian");
   listeSyntaxe ->addItem("Explicit big Endian");
 
 
-  QVBoxLayout *vbox2 = new QVBoxLayout(page2);
+  QVBoxLayout *vbox2 = new QVBoxLayout(m_pageReglagesDicom);
   vbox2->addWidget(lineEditIP);
   vbox2->addWidget(lineEditPort);
   vbox2->addWidget(syntaxe);
   vbox2->addWidget(listeSyntaxe);
 
-  page2->setLayout(vbox2);
+  m_pageReglagesDicom->setLayout(vbox2);
+}
 
-  //page 3 = LOGS
-
-  QLabel *texttest = new QLabel(page3);
+//logs
+void FenAdmin::_setupLogs()
+{
+  QLabel *texttest = new QLabel(m_pageLogs);
   texttest->setText("plop");
   /*QTimer *timer = new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(upLabel()));
         timer->start(1000);*/
 
-  QVBoxLayout *vbox3 = new QVBoxLayout(page3);
+  QVBoxLayout *vbox3 = new QVBoxLayout(m_pageLogs);
   vbox3->addWidget(texttest);
+}
 
-
-
-  //page 4 = Sauvegarder
-  QPushButton *bouton= new QPushButton("Sauvegarder", page4);
-  QPushButton *autreBouton = new QPushButton("Charger configuration", page4);
+//sauvegarder
+void FenAdmin::_setupSauvegarder()
+{
+  QPushButton *bouton= new QPushButton("Sauvegarder", m_pageSauvegarder);
+  QPushButton *autreBouton = new QPushButton("Charger configuration", m_pageSauvegarder);
   autreBouton->move(100, 0);
 
-  QVBoxLayout *vbox4 = new QVBoxLayout(page4);
+  QVBoxLayout *vbox4 = new QVBoxLayout(m_pageSauvegarder);
   vbox4->addWidget(bouton);
   vbox4->addWidget(autreBouton);
 
-  page4->setLayout(vbox4);
-
-
-
-  // 4 : ajouter les onglets au QTabWidget, en indiquant la page qu'ils contiennent
-  onglets->addTab(page1, "Réglages généraux");
-  onglets->addTab(page2, "Réglages DICOM");
-  onglets->addTab(page3, "LOGS");
-  onglets->addTab(page4, "Sauvegarder");
-
-  setCentralWidget(zoneCentrale);
-
+  m_pageSauvegarder->setLayout(vbox4);
 }

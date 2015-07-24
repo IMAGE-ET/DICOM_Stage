@@ -20,10 +20,25 @@
 
 class FenAdmin : public QMainWindow
 {
-    public:
-    FenAdmin();
+public:
+  FenAdmin();
 
-    private:
+private:
+  //réglages généraux
+  void _setupReglagesGeneraux();
+  QWidget * m_pageReglagesGeneraux;
+
+  //réglages DICOM
+  void _setupReglagesDicom();
+  QWidget * m_pageReglagesDicom;
+
+  //logs
+  void _setupLogs();
+  QWidget * m_pageLogs;
+
+  //sauvegarder
+  void _setupSauvegarder();
+  QWidget * m_pageSauvegarder;
 };
 
 #endif
