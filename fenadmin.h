@@ -19,8 +19,10 @@
 #include<QTimer>
 
 #include <QGridLayout>
+#include <QFormLayout>
 #include <QGroupBox>
 #include <QLineEdit>
+#include <QVBoxLayout>
 
 class FenAdmin : public QMainWindow
 {

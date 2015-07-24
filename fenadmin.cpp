@@ -196,37 +196,39 @@ void FenAdmin::_setupReglagesGeneraux()
 //réglages DICOM
 void FenAdmin::_setupReglagesDicom()
 {
-  QLineEdit *lineEditIP = new QLineEdit("Indiquez adresse IP", m_pageReglagesDicom);
-  QLineEdit *lineEditPort = new QLineEdit("Indiquer le port DICOM", m_pageReglagesDicom);
-  QLabel *syntaxe = new QLabel(m_pageReglagesDicom);
-  syntaxe->setText("Choisir la syntaxe de transfert :");
-  QComboBox *listeSyntaxe = new QComboBox(m_pageReglagesDicom);
-  listeSyntaxe ->addItem("Implicit little Endian");
-  listeSyntaxe ->addItem("Implicit big Endian");
-  listeSyntaxe ->addItem("Explicit little Endian");
-  listeSyntaxe ->addItem("Explicit big Endian");
+  QFormLayout * layoutReglagesDicom = new QFormLayout(m_pageReglagesDicom);
+  m_pageReglagesDicom->setLayout(layoutReglagesDicom);
 
+  QLineEdit * ip_lineEdit = new QLineEdit(m_pageReglagesDicom);
+  ip_lineEdit->setPlaceholderText("Adresse IP");
+  layoutReglagesDicom->addRow("Adresse IP :",ip_lineEdit);
 
-  QVBoxLayout *vbox2 = new QVBoxLayout(m_pageReglagesDicom);
-  vbox2->addWidget(lineEditIP);
-  vbox2->addWidget(lineEditPort);
-  vbox2->addWidget(syntaxe);
-  vbox2->addWidget(listeSyntaxe);
+  QLineEdit * port_lineEdit = new QLineEdit(m_pageReglagesDicom);
+  port_lineEdit->setPlaceholderText("Port DICOM");
+  layoutReglagesDicom->addRow("Port DICOM",port_lineEdit);
 
-  m_pageReglagesDicom->setLayout(vbox2);
+  QComboBox * syntaxe_combobox = new QComboBox(m_pageReglagesDicom);
+  syntaxe_combobox->addItem("Implicit little endian");
+  syntaxe_combobox->addItem("Implicit big endian");
+  syntaxe_combobox->addItem("Explicit little endian");
+  syntaxe_combobox->addItem("Explicit big endian");
+  layoutReglagesDicom->addRow("Syntaxe de transfert :", syntaxe_combobox);
 }
 
 //logs
 void FenAdmin::_setupLogs()
 {
+  QVBoxLayout * layoutLogs = new QVBoxLayout(m_pageLogs);
+  layoutLogs->setAlignment(Qt::AlignTop);
+
   QLabel *texttest = new QLabel(m_pageLogs);
   texttest->setText("plop");
+
+  layoutLogs->addWidget(texttest);
+
   /*QTimer *timer = new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(upLabel()));
         timer->start(1000);*/
-
-  QVBoxLayout *vbox3 = new QVBoxLayout(m_pageLogs);
-  vbox3->addWidget(texttest);
 }
 
 //sauvegarder
