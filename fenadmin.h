@@ -15,8 +15,8 @@
 #include<QMenuBar>
 #include<QMainWindow>
 #include<QStatusBar>
-#include<Qtime>
-#include<Qtimer>
+#include<QTime>
+#include<QTimer>
 
 class FenAdmin : public QMainWindow
 {
