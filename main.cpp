@@ -1,8 +1,8 @@
 // main.cpp
 
 
-#include "FenPrincipale.h"
-#include "FenAdmin.h"
+#include "fenprincipale.h"
+#include "fenadmin.h"
 
 
 int main(int argc, char *argv[])
