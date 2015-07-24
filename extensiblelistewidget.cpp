@@ -12,6 +12,11 @@ ExtensibleListeWidget::ExtensibleListeWidget(QString const& placeholder, QString
   _loadCombobox();
 
   QObject::connect(m_button, SIGNAL(clicked(bool)), this, SLOT(_addItemInLineEdit()));
+
+  QGridLayout * layout = new QGridLayout(this);
+  layout->addWidget(m_combobox,0,0,1,2);
+  layout->addWidget(m_lineedit,1,0);
+  layout->addWidget(m_button,1,1);
 }
 
 void ExtensibleListeWidget::_addItemInLineEdit()
@@ -23,6 +28,5 @@ void ExtensibleListeWidget::_addItemInLineEdit()
 void ExtensibleListeWidget::_loadCombobox()
 {
   m_combobox->clear();
-  for(auto it = m_items.cbegin(); it != m_items.cend(); ++it)
-    m_combobox->addItems(m_items);
+  m_combobox->addItems(m_items);
 }

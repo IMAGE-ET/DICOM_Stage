@@ -15,6 +15,10 @@
 #include <QTextEdit>
 #include <QPushButton>
 
+#include <initializer_list>
+
+#include "extensiblelistewidget.h"
+
 class FenAdmin : public QMainWindow
 {
   Q_OBJECT

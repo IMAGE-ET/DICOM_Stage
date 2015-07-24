@@ -5,6 +5,10 @@
 #include <QComboBox>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QGridLayout>
+#include <QStringList>
+
+#include <initializer_list>
 
 class ExtensibleListeWidget : public QWidget
 {
