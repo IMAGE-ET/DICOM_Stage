@@ -2,20 +2,26 @@
 #include "fenadmin.h"
 
 FenAdmin::FenAdmin():
+
+  m_mainWidget(new QWidget(this)),
+  m_mainLayout(new QGridLayout(m_mainWidget)),
+
   //réglages généraux
-  m_pageReglagesGeneraux(new QWidget(this)),
+  m_pageReglagesGeneraux(new QGroupBox("Réglages généraux", m_mainWidget)),
 
   //réglages DICOM
-  m_pageReglagesDicom(new QWidget(this)),
+  m_pageReglagesDicom(new QGroupBox("Réglages DICOM", m_mainWidget)),
 
   //logs
-  m_pageLogs(new QWidget(this)),
+  m_pageLogs(new QGroupBox("LOGS", m_mainWidget)),
 
   //sauvegarder
-  m_pageSauvegarder(new QWidget(this))
+  m_pageSauvegarder(new QGroupBox("Sauvegarder", m_mainWidget))
 {
-  //title name
+  /*----proprietes de la fenetre----*/
   setWindowTitle("Interface Administrateur");
+  setMinimumSize(650,550);
+  setWindowState(Qt::WindowMaximized);
 
   //barre menu
   QMenu *f = menuBar()->addMenu("Fichier");
@@ -23,30 +29,22 @@ FenAdmin::FenAdmin():
   QMenu *e = menuBar()->addMenu("Edit");
   e->addAction("Admin");
 
-  //taille de la fenêtre
-  setMinimumSize(650,550);
-  setWindowState(Qt::WindowMaximized);
-
-  QWidget *zoneCentrale = new QWidget;
-  // 1 : Création du QTabWidget
-  QTabWidget *onglets = new QTabWidget(zoneCentrale);
-  onglets->setGeometry(30, 20, 600, 500);
-
-  // 3 : Création du contenu
+  /*----création du contenu----*/
 
   _setupReglagesGeneraux();
   _setupReglagesDicom();
   _setupLogs();
   _setupSauvegarder();
 
-  // 4 : ajouter les onglets au QTabWidget, en indiquant la page qu'ils contiennent
-  onglets->addTab(m_pageReglagesGeneraux, "Réglages généraux");
-  onglets->addTab(m_pageReglagesDicom, "Réglages DICOM");
-  onglets->addTab(m_pageLogs, "LOGS");
-  onglets->addTab(m_pageSauvegarder, "Sauvegarder");
+  /*----mise en place des pages----*/
+  m_mainLayout->addWidget(m_pageReglagesGeneraux,0,0);
+  m_mainLayout->addWidget(m_pageReglagesDicom,0,1);
+  m_mainLayout->addWidget(m_pageLogs,1,0);
+  m_mainLayout->addWidget(m_pageSauvegarder,1,1);
 
-  setCentralWidget(zoneCentrale);
-
+  /*----widget central----*/
+  setCentralWidget(m_mainWidget);
+  m_mainWidget->setLayout(m_mainLayout);
 }
 
 //réglages généraux

@@ -18,12 +18,18 @@
 #include<QTime>
 #include<QTimer>
 
+#include <QGridLayout>
+#include <QGroupBox>
+
 class FenAdmin : public QMainWindow
 {
 public:
   FenAdmin();
 
 private:
+  QWidget * m_mainWidget;
+  QGridLayout * m_mainLayout;
+
   //réglages généraux
   void _setupReglagesGeneraux();
   QWidget * m_pageReglagesGeneraux;
