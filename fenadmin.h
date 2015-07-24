@@ -1,33 +1,45 @@
 #ifndef FENADMIN
 #define FENADMIN
 
-#include <QApplication>
-#include <QFormLayout>
-#include <QCheckBox>
-#include <QRadioButton>
-#include <QGroupBox>
-#include <QComboBox>
-#include <QLabel>
-#include <QProgressBar>
-#include <QTabWidget>
-#include <QSpinBox>
-#include <QtWidgets>
-#include<QMenuBar>
-#include<QMainWindow>
-#include<QStatusBar>
-#include<QTime>
-#include<QTimer>
+#include <QMainWindow>
+#include <QMenuBar>
 
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QGridLayout>
 #include <QFormLayout>
 #include <QGroupBox>
+
+#include <QComboBox>
 #include <QLineEdit>
-#include <QVBoxLayout>
+#include <QTextEdit>
+#include <QPushButton>
 
 class FenAdmin : public QMainWindow
 {
+  Q_OBJECT
+
 public:
   FenAdmin();
+
+signals:
+
+public slots:
+  void addLogLine(QString const& line);
+
+private slots:
+  //réglages généraux
+  void _generalNext();
+
+  //réglages DICOM
+  void _dicomNext();
+
+  //logs
+  void _saveLogs() const;
+
+  //sauvegarder
+  void _save() const;
+  void _load();
 
 private:
   QWidget * m_mainWidget;
@@ -44,6 +56,7 @@ private:
   //logs
   void _setupLogs();
   QWidget * m_pageLogs;
+  QTextEdit * m_textEditLogs;
 
   //sauvegarder
   void _setupSauvegarder();

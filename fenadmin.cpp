@@ -14,6 +14,7 @@ FenAdmin::FenAdmin():
 
   //logs
   m_pageLogs(new QGroupBox("Logs", m_mainWidget)),
+  m_textEditLogs(new QTextEdit(m_pageLogs)),
 
   //sauvegarder
   m_pageSauvegarder(new QGroupBox("Sauvegarder", m_mainWidget))
@@ -36,6 +37,8 @@ FenAdmin::FenAdmin():
   _setupLogs();
   _setupSauvegarder();
 
+  m_pageReglagesDicom->setDisabled(true);
+
   /*----mise en place des pages----*/
   m_mainLayout->addWidget(m_pageReglagesGeneraux,0,0);
   m_mainLayout->addWidget(m_pageReglagesDicom,0,1);
@@ -46,6 +49,46 @@ FenAdmin::FenAdmin():
   setCentralWidget(m_mainWidget);
   m_mainWidget->setLayout(m_mainLayout);
 }
+
+/*----------PUBLIC SLOTS----------*/
+
+void FenAdmin::addLogLine(QString const& line)
+{
+  m_textEditLogs->append(line);
+}
+
+/*----------PRIVATE SLOTS----------*/
+//réglages généraux
+void FenAdmin::_generalNext()
+{
+  m_pageReglagesGeneraux->setDisabled(true);
+  m_pageReglagesDicom->setDisabled(false);
+}
+
+//réglages DICOM
+void FenAdmin::_dicomNext()
+{
+
+}
+
+//logs
+void FenAdmin::_saveLogs() const
+{
+  //TODO
+}
+
+//sauvegarder
+void FenAdmin::_save() const
+{
+
+}
+
+void FenAdmin::_load()
+{
+
+}
+
+/*----------PRIVATE FUNCS----------*/
 
 //réglages généraux
 void FenAdmin::_setupReglagesGeneraux()
@@ -221,10 +264,22 @@ void FenAdmin::_setupLogs()
   QVBoxLayout * layoutLogs = new QVBoxLayout(m_pageLogs);
   layoutLogs->setAlignment(Qt::AlignTop);
 
-  QLabel *texttest = new QLabel(m_pageLogs);
-  texttest->setText("plop");
+  m_textEditLogs->setReadOnly(true);
+  m_textEditLogs->setText("plop");
 
-  layoutLogs->addWidget(texttest);
+  layoutLogs->addWidget(m_textEditLogs);
+
+  QHBoxLayout * layoutButtonsLog = new QHBoxLayout;
+  QPushButton * buttonSelectAll = new QPushButton("Tout sélectionner", m_pageLogs);
+  QPushButton * buttonSaveAs = new QPushButton("Sauvegarder les logs", m_pageLogs);
+
+  QObject::connect(buttonSelectAll, SIGNAL(clicked(bool)), m_textEditLogs, SLOT(selectAll()));
+  QObject::connect(buttonSaveAs, SIGNAL(clicked(bool)), this, SLOT(_saveLogs()));
+
+  layoutButtonsLog->addWidget(buttonSelectAll);
+  layoutButtonsLog->addWidget(buttonSaveAs);
+
+  layoutLogs->addLayout(layoutButtonsLog);
 
   /*QTimer *timer = new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(upLabel()));
