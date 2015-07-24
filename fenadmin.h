@@ -36,6 +36,7 @@ private slots:
   void _generalNext();
 
   //réglages DICOM
+  void _dicomPrevious();
   void _dicomNext();
 
   //logs

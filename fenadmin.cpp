@@ -66,6 +66,12 @@ void FenAdmin::_generalNext()
 }
 
 //réglages DICOM
+void FenAdmin::_dicomPrevious()
+{
+  m_pageReglagesGeneraux->setDisabled(false);
+  m_pageReglagesDicom->setDisabled(true);
+}
+
 void FenAdmin::_dicomNext()
 {
 
@@ -161,6 +167,10 @@ void FenAdmin::_setupReglagesGeneraux()
 
   ExtensibleListeWidget * localisation_widget = new ExtensibleListeWidget("Ajouter une localisation", localisation_items, m_pageReglagesGeneraux);
   layoutReglagesGeneraux->addRow("Localisation :", localisation_widget);
+
+  QPushButton * nextButton = new QPushButton("Suivant", m_pageReglagesGeneraux);
+  layoutReglagesGeneraux->addWidget(nextButton);
+  QObject::connect(nextButton, SIGNAL(clicked(bool)), this, SLOT(_generalNext()));
 }
 
 //réglages DICOM
@@ -175,7 +185,7 @@ void FenAdmin::_setupReglagesDicom()
 
   QLineEdit * port_lineEdit = new QLineEdit(m_pageReglagesDicom);
   port_lineEdit->setPlaceholderText("Port DICOM");
-  layoutReglagesDicom->addRow("Port DICOM",port_lineEdit);
+  layoutReglagesDicom->addRow("Port DICOM :",port_lineEdit);
 
   QComboBox * syntaxe_combobox = new QComboBox(m_pageReglagesDicom);
   syntaxe_combobox->addItem("Implicit little endian");
@@ -183,6 +193,10 @@ void FenAdmin::_setupReglagesDicom()
   syntaxe_combobox->addItem("Explicit little endian");
   syntaxe_combobox->addItem("Explicit big endian");
   layoutReglagesDicom->addRow("Syntaxe de transfert :", syntaxe_combobox);
+
+  QPushButton * previousButton = new QPushButton("Précedent", m_pageReglagesDicom);
+  layoutReglagesDicom->addWidget(previousButton);
+  QObject::connect(previousButton, SIGNAL(clicked(bool)), this, SLOT(_dicomPrevious()));
 }
 
 //logs
