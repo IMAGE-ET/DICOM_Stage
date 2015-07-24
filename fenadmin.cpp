@@ -50,91 +50,147 @@ FenAdmin::FenAdmin():
 //réglages généraux
 void FenAdmin::_setupReglagesGeneraux()
 {
-  //Site
-  QLineEdit *lineEdit1 = new QLineEdit("Nom du Site", m_pageReglagesGeneraux);
-  QLineEdit *lineEdit2 = new QLineEdit("Adresse", m_pageReglagesGeneraux);
+  //layout de la page
+  QFormLayout * layoutReglagesGeneraux = new QFormLayout(m_pageReglagesGeneraux);
+
+  m_pageReglagesGeneraux->setLayout(layoutReglagesGeneraux);
+
+  /*----site----*/
+  QLineEdit * lineEdit_nomDuSite = new QLineEdit(m_pageReglagesGeneraux);
+  lineEdit_nomDuSite->setPlaceholderText("Nom du site");
+  layoutReglagesGeneraux->addRow("Nom du site", lineEdit_nomDuSite);
+
+  QLineEdit * lineEdit_adresse = new QLineEdit(m_pageReglagesGeneraux);
+  lineEdit_adresse->setPlaceholderText("Adresse");
+  layoutReglagesGeneraux->addRow("Adresse", lineEdit_adresse);
 
 
-  //Liste Opérateurs
-  QLabel *operateur = new QLabel(m_pageReglagesGeneraux);
-  operateur->setText("Liste des Opérateurs");
-  QComboBox *listeOperateurs = new QComboBox(m_pageReglagesGeneraux);
-  listeOperateurs->addItem("Monsieur X");
-  listeOperateurs->addItem("Madame Y");
+  /*----liste des opérateurs----*/
+  QWidget * listeOperateurs_widget = new QWidget(m_pageReglagesGeneraux);
+  QGridLayout * listeOperateurs_layout = new QGridLayout(listeOperateurs_widget);
 
-  QLineEdit *lineEditOp = new QLineEdit("Ajouter un Opérateur", m_pageReglagesGeneraux);
+  QComboBox * listeOperateurs_combobox = new QComboBox(listeOperateurs_widget);
+  listeOperateurs_combobox->addItem("Monsieur Stark");
+  listeOperateurs_combobox->addItem("Madame Potts");
 
-  //Liste Prescripteurs
-  QLabel *prescripteur = new QLabel(m_pageReglagesGeneraux);
-  prescripteur->setText("Liste des Prescripteurs");
-  QComboBox *listePrescripteurs = new QComboBox(m_pageReglagesGeneraux);
-  listePrescripteurs->addItem("Monsieur X");
-  listePrescripteurs->addItem("Madame Y");
+  QLineEdit * listeOperateurs_lineedit = new QLineEdit(listeOperateurs_widget);
+  listeOperateurs_lineedit->setPlaceholderText("Ajouter un opérateur");
 
-  QLineEdit *lineEditPr = new QLineEdit("Ajouter un Prescripteur", m_pageReglagesGeneraux);
+  QPushButton * listeOperateurs_pushbutton = new QPushButton("Ajouter", listeOperateurs_widget);
 
-  //Liste Réalisateurs
-  QLabel *realisateur = new QLabel(m_pageReglagesGeneraux);
-  realisateur->setText("Liste des Réalisateurs");
-  QComboBox *listeRealisateurs = new QComboBox(m_pageReglagesGeneraux);
-  listeRealisateurs->addItem("Monsieur X");
-  listeRealisateurs->addItem("Madame Y");
+  listeOperateurs_layout->addWidget(listeOperateurs_combobox,0,0,1,2);
+  listeOperateurs_layout->addWidget(listeOperateurs_lineedit,1,0);
+  listeOperateurs_layout->addWidget(listeOperateurs_pushbutton,1,1);
 
-  QLineEdit *lineEditReal = new QLineEdit("Ajouter un Réalisateur");
-
-  //Positions patient
-  QLabel *position = new QLabel(m_pageReglagesGeneraux);
-  position->setText("Liste des Positions Patient");
-  QComboBox *listePosition = new QComboBox(m_pageReglagesGeneraux);
-  listePosition->addItem("Debout");
-  listePosition->addItem("Allongé");
-
-  QLineEdit *lineEditPos = new QLineEdit("Ajouter une Position Patient");
-
-  //Etats
-  QLabel *etat = new QLabel(m_pageReglagesGeneraux);
-  etat->setText("Liste des Etats");
-  QComboBox *listeEtat = new QComboBox(m_pageReglagesGeneraux);
-  listeEtat ->addItem("Repos");
-  listeEtat ->addItem("Contraction");
-  listeEtat ->addItem("Extention");
-  QLineEdit *lineEditEtat = new QLineEdit("Ajouter un Etat", m_pageReglagesGeneraux);
-
-  //localisation
-  QLabel *localisation = new QLabel(m_pageReglagesGeneraux);
-  localisation->setText("Définir la localisation de l'examen :");
-  QComboBox *listeLoc = new QComboBox(m_pageReglagesGeneraux);
-  listeLoc->addItem("Bras");
-  listeLoc->addItem("Molet");
-  listeLoc->addItem("Ventre");
-  QLineEdit *lineEditLoc = new QLineEdit("Ajouter une localisation");
+  listeOperateurs_widget->setLayout(listeOperateurs_layout);
+  layoutReglagesGeneraux->addRow("Opérateur :",listeOperateurs_widget);
 
 
-  QVBoxLayout *vbox1 = new QVBoxLayout(m_pageReglagesGeneraux);
-  vbox1->addWidget(lineEdit1);
-  vbox1->addWidget(lineEdit2);
-  vbox1->addWidget(operateur);
-  vbox1->addWidget(listeOperateurs);
-  vbox1->addWidget(lineEditOp);
-  vbox1->addWidget(prescripteur);
-  vbox1->addWidget(listePrescripteurs);
-  vbox1->addWidget(lineEditPr);
-  vbox1->addWidget(realisateur);
-  vbox1->addWidget(listeRealisateurs);
-  vbox1->addWidget(lineEditReal);
-  vbox1->addWidget(position);
-  vbox1->addWidget(listePosition);
-  vbox1->addWidget(lineEditPos);
-  vbox1->addWidget(etat);
-  vbox1->addWidget(listeEtat);
-  vbox1->addWidget(lineEditEtat);
-  vbox1->addWidget(localisation);
-  vbox1->addWidget(listeLoc);
-  vbox1->addWidget(lineEditLoc);
+  /*----liste des prescripteurs----*/
+  QWidget * listePrescripteurs_widget = new QWidget(m_pageReglagesGeneraux);
+  QGridLayout * listePrescripteurs_layout = new QGridLayout(listePrescripteurs_widget);
+
+  QComboBox * listePrescripteurs_combobox = new QComboBox(listePrescripteurs_widget);
+  listePrescripteurs_combobox->addItem("Monsieur Wayne");
+  listePrescripteurs_combobox->addItem("Madame Kyle");
+
+  QLineEdit * listePrescripteurs_lineedit = new QLineEdit(listePrescripteurs_widget);
+  listePrescripteurs_lineedit->setPlaceholderText("Ajouter un prescripteur");
+
+  QPushButton * listePrescripteurs_pushbutton = new QPushButton("Ajouter", listePrescripteurs_widget);
+
+  listePrescripteurs_layout->addWidget(listePrescripteurs_combobox,0,0,1,2);
+  listePrescripteurs_layout->addWidget(listePrescripteurs_lineedit,1,0);
+  listePrescripteurs_layout->addWidget(listePrescripteurs_pushbutton,1,1);
+
+  listePrescripteurs_widget->setLayout(listePrescripteurs_layout);
+  layoutReglagesGeneraux->addRow("Prescripteur :",listePrescripteurs_widget);
 
 
+  /*----liste des réalisateurs----*/
+  QWidget * listeRealisateurs_widget = new QWidget(m_pageReglagesGeneraux);
+  QGridLayout * listeRealisateurs_layout = new QGridLayout(listeRealisateurs_widget);
 
-  m_pageReglagesGeneraux->setLayout(vbox1);
+  QComboBox * listeRealisateurs_combobox = new QComboBox(listeRealisateurs_widget);
+  listeRealisateurs_combobox->addItem("Monsieur Rogers");
+  listeRealisateurs_combobox->addItem("Madame Carter");
+
+  QLineEdit * listeRealisateurs_lineedit = new QLineEdit(listeRealisateurs_widget);
+  listeRealisateurs_lineedit->setPlaceholderText("Ajouter un réalisateur");
+
+  QPushButton * listeRealisateurs_pushbutton = new QPushButton("Ajouter", listeRealisateurs_widget);
+
+  listeRealisateurs_layout->addWidget(listeRealisateurs_combobox,0,0,1,2);
+  listeRealisateurs_layout->addWidget(listeRealisateurs_lineedit,1,0);
+  listeRealisateurs_layout->addWidget(listeRealisateurs_pushbutton,1,1);
+
+  listeRealisateurs_widget->setLayout(listeRealisateurs_layout);
+  layoutReglagesGeneraux->addRow("Réalisateurs :",listeRealisateurs_widget);
+
+
+  /*----liste des positions patients----*/
+  QWidget * positionsPatients_widget = new QWidget(m_pageReglagesGeneraux);
+  QGridLayout * positionsPatients_layout = new QGridLayout(positionsPatients_widget);
+
+  QComboBox * positionsPatients_combobox = new QComboBox(positionsPatients_widget);
+  positionsPatients_combobox->addItem("Debout");
+  positionsPatients_combobox->addItem("Allongé");
+
+  QLineEdit * positionsPatients_lineedit = new QLineEdit(positionsPatients_widget);
+  positionsPatients_lineedit->setPlaceholderText("Ajouter une position patient");
+
+  QPushButton * positionsPatients_pushbutton = new QPushButton("Ajouter", positionsPatients_widget);
+
+  positionsPatients_layout->addWidget(positionsPatients_combobox,0,0,1,2);
+  positionsPatients_layout->addWidget(positionsPatients_lineedit,1,0);
+  positionsPatients_layout->addWidget(positionsPatients_pushbutton,1,1);
+
+  positionsPatients_widget->setLayout(positionsPatients_layout);
+  layoutReglagesGeneraux->addRow("Position patient :",positionsPatients_widget);
+
+
+  /*----liste des etats----*/
+  QWidget * listeEtats_widget = new QWidget(m_pageReglagesGeneraux);
+  QGridLayout * listeEtats_layout = new QGridLayout(listeEtats_widget);
+
+  QComboBox * listeEtats_combobox = new QComboBox(listeEtats_widget);
+  listeEtats_combobox->addItem("Repos");
+  listeEtats_combobox->addItem("Contraction");
+  listeEtats_combobox->addItem("Extension");
+
+  QLineEdit * listeEtats_lineedit = new QLineEdit(listeEtats_widget);
+  listeEtats_lineedit->setPlaceholderText("Ajouter un état");
+
+  QPushButton * listeEtats_pushbutton = new QPushButton("Ajouter",listeEtats_widget);
+
+  listeEtats_layout->addWidget(listeEtats_combobox,0,0,1,2);
+  listeEtats_layout->addWidget(listeEtats_lineedit,1,0);
+  listeEtats_layout->addWidget(listeEtats_pushbutton,1,1);
+
+  listeEtats_widget->setLayout(listeEtats_layout);
+  layoutReglagesGeneraux->addRow("État :",listeEtats_widget);
+
+
+  /*----localisation----*/
+  QWidget * localisation_widget = new QWidget(m_pageReglagesGeneraux);
+  QGridLayout * localisation_layout = new QGridLayout(localisation_widget);
+
+  QComboBox * localisation_combobox = new QComboBox(localisation_widget);
+  localisation_combobox->addItem("Bras");
+  localisation_combobox->addItem("Molet");
+  localisation_combobox->addItem("Ventre");
+
+  QLineEdit * localisation_lineedit = new QLineEdit(localisation_widget);
+  localisation_lineedit->setPlaceholderText("Ajouter une localisation");
+
+  QPushButton * localisation_pushbutton = new QPushButton("Ajouter", localisation_widget);
+
+  localisation_layout->addWidget(localisation_combobox,0,0,1,2);
+  localisation_layout->addWidget(localisation_lineedit,1,0);
+  localisation_layout->addWidget(localisation_pushbutton,1,1);
+
+  localisation_widget->setLayout(localisation_layout);
+  layoutReglagesGeneraux->addRow("Localisation :", localisation_widget);
 }
 
 //réglages DICOM

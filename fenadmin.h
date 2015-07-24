@@ -20,6 +20,7 @@
 
 #include <QGridLayout>
 #include <QGroupBox>
+#include <QLineEdit>
 
 class FenAdmin : public QMainWindow
 {
