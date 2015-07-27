@@ -164,6 +164,7 @@ void FenPrincipale::_setupReglagesExamen()
   QStringList positionsPatients_items;
   positionsPatients_items.append("Debout");
   positionsPatients_items.append("Allongé");
+  ExtensibleListeWidget * positionsPatients_widget = new ExtensibleListeWidget("", positionsPatients_items, m_pageReglagesExamen);
   layoutReglagesExamen->addRow("Position du patient :",positionsPatients_widget);
 
 
@@ -172,6 +173,7 @@ void FenPrincipale::_setupReglagesExamen()
   listeEtats_items.append("Repos");
   listeEtats_items.append("Contraction");
   listeEtats_items.append("Extension");
+  ExtensibleListeWidget * listeEtats_widget = new ExtensibleListeWidget("Ajouter un état", listeEtats_items, m_pageReglagesExamen);
   layoutReglagesExamen->addRow("État du muscle / activité demandée:",listeEtats_widget);
 
 
@@ -180,6 +182,7 @@ void FenPrincipale::_setupReglagesExamen()
   localisation_items.append("Bras");
   localisation_items.append("Mollet");
   localisation_items.append("Ventre");
+  ExtensibleListeWidget * localisation_widget = new ExtensibleListeWidget("Ajouter une localisation", localisation_items, m_pageReglagesExamen);
   layoutReglagesExamen->addRow("Localisation de l'examen:", localisation_widget);
 
   QPushButton * nextButton = new QPushButton("Suivant", m_pageReglagesExamen);
@@ -204,6 +207,7 @@ void FenPrincipale::_setupReglagesMedecin()
   QStringList listeOperateurs_items;
   listeOperateurs_items.append("Monsieur Stark");
   listeOperateurs_items.append("Madame Potts");
+  ExtensibleListeWidget * listeOperateurs_widget = new ExtensibleListeWidget("Ajouter un opérateur", listeOperateurs_items, m_pageReglagesMedecin);
   layoutReglagesMedecin->addRow("Opérateur :",listeOperateurs_widget);
 
 
@@ -211,6 +215,7 @@ void FenPrincipale::_setupReglagesMedecin()
   QStringList listePrescripteurs_items;
   listePrescripteurs_items.append("Monsieur Wayne");
   listePrescripteurs_items.append("Madame Kyle");
+  ExtensibleListeWidget * listePrescripteurs_widget = new ExtensibleListeWidget("Ajouter un prescripteur", listePrescripteurs_items, m_pageReglagesMedecin);
   layoutReglagesMedecin->addRow("Prescripteur :",listePrescripteurs_widget);
 
 
@@ -219,6 +224,7 @@ void FenPrincipale::_setupReglagesMedecin()
   QStringList listeRealisateurs_items;
   listeRealisateurs_items.append("Monsieur Rogers");
   listeRealisateurs_items.append("Madame Carter");
+  ExtensibleListeWidget * listeRealisateurs_widget = new ExtensibleListeWidget("Ajouter un réalisateur", listeRealisateurs_items, m_pageReglagesMedecin);
   layoutReglagesMedecin->addRow("Réalisateur :",listeRealisateurs_widget);
 
 

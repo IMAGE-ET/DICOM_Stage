@@ -16,6 +16,8 @@
 #include<QMainWindow>
 #include<QStatusBar>
 
+#include "extensiblelistewidget.h"
+
 class FenPrincipale : public QMainWindow
 {
     Q_OBJECT
@@ -26,7 +28,7 @@ class FenPrincipale : public QMainWindow
   signals:
 
   public slots:
-    void addLogLine(QString const& line);
+    //void addLogLine(QString const& line);
 
   private slots:
     //Patient
@@ -38,7 +40,7 @@ class FenPrincipale : public QMainWindow
 
     //Medecin
     void _medecinPrevious();
-    void _medecinNext();
+    //void _medecinNext();
 
     //sauvegarder
     void _save() const;

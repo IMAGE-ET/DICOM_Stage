@@ -9,7 +9,8 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    FenAdmin fenetre;
+    //FenAdmin fenetre;
+    FenPrincipale fenetre;
     fenetre.show();
     return app.exec();
 }
