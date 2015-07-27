@@ -135,24 +135,23 @@ void FenPrincipale::_setupReglagesPatient()
   layoutReglagesPatient->addRow("Sexe du patient", sexe_widget);
 
   /*----Age----*/
-  QSpinBox *spinBox_age = new QSpinBox(m_pageReglagesPatient);
+  QSpinBox * spinBox_age = new QSpinBox(m_pageReglagesPatient);
          spinBox_age->setSuffix(" ans");
          spinBox_age->setRange(0, 100);
   // spinBox_age->setPlaceholderText("Age du patient");
    layoutReglagesPatient->addRow("Age du patient", spinBox_age);
 
+
    /*----Morphologie----*/
    QSpinBox *spinBox_poid = new QSpinBox(m_pageReglagesPatient);
           spinBox_poid->setSuffix(" Kg");
           spinBox_poid->setRange(0, 250);
-    //spinBox_age->setPlaceholderText("Poids du patient");
     layoutReglagesPatient->addRow("Poids du patient", spinBox_poid);
 
     QSpinBox *spinBox_taille = new QSpinBox(m_pageReglagesPatient);
            spinBox_taille->setSuffix(" cm");
            spinBox_taille->setRange(0, 250);
-    // spinBox_taille->setPlaceholderText("Taille du patient");
-     layoutReglagesPatient->addRow("Taille du patient", spinBox_age);
+     layoutReglagesPatient->addRow("Taille du patient", spinBox_taille);
 
   QPushButton * nextButton = new QPushButton("Suivant", m_pageReglagesPatient);
   layoutReglagesPatient->addWidget(nextButton);
