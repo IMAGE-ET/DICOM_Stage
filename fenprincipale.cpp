@@ -1,148 +1,242 @@
 #include "fenprincipale.h"
 
-FenPrincipale::FenPrincipale()
+FenPrincipale::FenPrincipale():
+
+m_mainWidget(new QWidget(this)),
+m_mainLayout(new QGridLayout(m_mainWidget)),
+
+//réglages Patient
+m_pageReglagesPatient(new QGroupBox("Réglages patient", m_mainWidget)),
+
+//réglages Examen
+m_pageReglagesExamen(new QGroupBox("Réglages examen", m_mainWidget)),
+
+//réglages Médecins
+m_pageReglagesMedecin(new QGroupBox("Réglages médecins", m_mainWidget)),
+
+//sauvegarder
+m_pageSauvegarder(new QGroupBox("Sauvegarder", m_mainWidget))
+
 {
+    /*----proprietes de la fenetre----*/
+    setWindowTitle("Interface Utilisateur");
+    setMinimumSize(650,550);
+    setWindowState(Qt::WindowMaximized);
+
     //barre menu
     QMenu *f = menuBar()->addMenu("Fichier");
     f->addAction("Save");
     QMenu *e = menuBar()->addMenu("Edit");
     e->addAction("Admin");
 
-    //taille de la fenêtre
-    setMinimumSize(650,450);
-    setMaximumSize(650,450);
+    /*----création du contenu----*/
 
-    QWidget *zoneCentrale = new QWidget;
-    // 1 : Création du QTabWidget
-    QTabWidget *onglets = new QTabWidget(zoneCentrale);
-    onglets->setGeometry(30, 20, 600, 400);
+    _setupReglagesPatient();
+    _setupReglagesExamen();
+    _setupReglagesMedecin();
+    _setupSauvegarder();
 
-    // 2 : Création des pages, en utilisant un widget parent pour contenir chacune des pages
-    QWidget *page1 = new QWidget;
-    QWidget *page2 = new QWidget;
-    QWidget *page3 = new QWidget;
-    QLabel *page4 = new QLabel;
+    m_pageReglagesExamen->setDisabled(true);
 
-    // 3 : Création du contenu
+    /*----mise en place des pages----*/
+    m_mainLayout->addWidget(m_pageReglagesPatient,0,0);
+    m_mainLayout->addWidget(m_pageReglagesExamen,0,1);
+    m_mainLayout->addWidget(m_pageReglagesMedecin,1,0);
+    m_mainLayout->addWidget(m_pageSauvegarder,1,1);
 
-        // Page 1 = Patient
+    /*----widget central----*/
+    setCentralWidget(m_mainWidget);
+    m_mainWidget->setLayout(m_mainLayout);
+  }
 
-        //identité
-        QLineEdit *idpatient = new QLineEdit("IdPatient");
-        QLineEdit *lineEdit1 = new QLineEdit("Nom du Patient");
-        QLineEdit *lineEdit2 = new QLineEdit("Prénom du Patient");
+/*----------PRIVATE SLOTS----------*/
+//réglages Patient
+void FenPrincipale::_patientNext()
+{
+  m_pageReglagesPatient->setDisabled(true);
+  m_pageReglagesExamen->setDisabled(false);
+}
 
-        //sexe du patient
-        QLabel *textsexe = new QLabel(page1);
-        textsexe->setText("Sexe du patient : ");
-        QGroupBox *groupbox = new QGroupBox("Sexe du patient");
-        QRadioButton *Femme = new QRadioButton("Femme");
-        QRadioButton *Homme = new QRadioButton("Homme");
-        QRadioButton *Autre = new QRadioButton("Autre");
+//réglages Examen
+void FenPrincipale::_examenPrevious()
+{
+  m_pageReglagesPatient->setDisabled(false);
+  m_pageReglagesExamen->setDisabled(true);
+}
 
-        Femme->setChecked(true);
+void FenPrincipale::_examenNext()
+{
+  m_pageReglagesExamen->setDisabled(true);
+  m_pageReglagesMedecin->setDisabled(false);
+}
 
-        //N°INSEE
-        QLineEdit *lineEdit3 = new QLineEdit("N° INSEE");
+//réglages Médecin
+void FenPrincipale::_medecinPrevious()
+{
+    m_pageReglagesExamen->setDisabled(false);
+    m_pageReglagesMedecin->setDisabled(true);
+}
 
-        //Age
-        QSpinBox *age = new QSpinBox;
-               age->setSuffix(" ans");
-               age->setRange(0, 100);
+//sauvegarder
+void FenPrincipale::_save() const
+{
 
-         QSpinBox *poid = new QSpinBox;
-               poid->setSuffix(" Kg");
-               poid->setRange(0, 250);
+}
 
-         QSpinBox *taille = new QSpinBox;
-               taille->setSuffix(" cm");
-               taille->setRange(0, 250);
+void FenPrincipale::_load()
+{
 
-        QVBoxLayout *vbox1 = new QVBoxLayout;
-        vbox1->addWidget(idpatient);
-        vbox1->addWidget(lineEdit1);
-        vbox1->addWidget(lineEdit2);
-        vbox1->addWidget(age);
-        vbox1->addWidget(textsexe);
-        groupbox->setLayout(vbox1);
-        vbox1->addWidget(Femme);
-        vbox1->addWidget(Homme);
-        vbox1->addWidget(Autre);
-        vbox1->addWidget(lineEdit3);
-        vbox1->addWidget(poid);
-        vbox1->addWidget(taille);
+}
 
+/*----------PRIVATE FUNCS----------*/
 
+//réglages patient
+void FenPrincipale::_setupReglagesPatient()
+{
+  //layout de la page
+  QFormLayout * layoutReglagesPatient = new QFormLayout(m_pageReglagesPatient);
 
-        page1->setLayout(vbox1);
+  m_pageReglagesPatient->setLayout(layoutReglagesPatient);
 
-        // Page 2 = examen
+  /*----Identité----*/
+  QLineEdit * lineEdit_idPatient = new QLineEdit(m_pageReglagesPatient);
+  lineEdit_idPatient->setPlaceholderText("ID Patient");
+  layoutReglagesPatient->addRow("ID Patient", lineEdit_idPatient);
 
-        QLabel *position = new QLabel(page2);
-        position->setText("Choisir la position patient :");
-        QComboBox *liste1 = new QComboBox(page2);
-        liste1->addItem("Debout");
-        liste1->addItem("Allongé");
-        liste1->move(5, 20);
+  QLineEdit * lineEdit_nomPatient = new QLineEdit(m_pageReglagesPatient);
+  lineEdit_nomPatient->setPlaceholderText("Nom du Patient");
+  layoutReglagesPatient->addRow("Nom du Patient", lineEdit_nomPatient);
 
-        QLabel *etat = new QLabel(page2);
-        etat->setText("Définir l'état du patient :");
-        QComboBox *liste2 = new QComboBox(page2);
-        liste2->addItem("Repos");
-        liste2->addItem("Contraction");
-        liste2->addItem("Extention");
-        etat->move(5, 60);
-        liste2->move(5, 80);
+  QLineEdit * lineEdit_prenomPatient = new QLineEdit(m_pageReglagesPatient);
+  lineEdit_prenomPatient->setPlaceholderText("Préom du Patient");
+  layoutReglagesPatient->addRow("Préom du Patient", lineEdit_prenomPatient);
 
-        QLabel *localisation = new QLabel(page2);
-        localisation->setText("Définir la localisation de l'examen :");
-        QComboBox *listeLoc = new QComboBox(page2);
-        listeLoc->addItem("Bras");
-        listeLoc->addItem("Molet");
-        listeLoc->addItem("Ventre");
-        localisation->move(5, 120);
-        listeLoc->move(5, 140);
+  QLineEdit * lineEdit_INSEEPatient = new QLineEdit(m_pageReglagesPatient);
+  lineEdit_INSEEPatient->setPlaceholderText("Numéro INSEE");
+  layoutReglagesPatient->addRow("Numéro INSEE", lineEdit_INSEEPatient);
 
+  /*----Sexe----*/
+  QGroupBox *groupbox_sexe = new QGroupBox("Sexe du patient");
+  layoutReglagesPatient->addRow("Sexe du patien", groupbox_sexe );
+  QRadioButton *Femme = new QRadioButton("Femme");
+  QRadioButton *Homme = new QRadioButton("Homme");
+  QRadioButton *Autre = new QRadioButton("Autre");
 
-        QVBoxLayout *vbox2 = new QVBoxLayout;
-        vbox2->addWidget(position);
-        vbox2->addWidget(liste1);
-        vbox2->addWidget(etat);
-        vbox2->addWidget(liste2);
-        vbox2->addWidget(localisation);
-        vbox2->addWidget(listeLoc);
+  Femme->setChecked(true);
 
-        //page 3 = opérateur
-        //identité
-        QLineEdit *lineEdit4 = new QLineEdit("Nom de l'opérateur");
-        QLineEdit *lineEdit5 = new QLineEdit("Prénom de l'opérateur");
+  /*----Age----*/
+  QSpinBox *spinBox_age = new QSpinBox(m_pageReglagesPatient);
+         spinBox_age->setSuffix(" ans");
+         spinBox_age->setRange(0, 100);
+  // spinBox_age->setPlaceholderText("Age du patient");
+   layoutReglagesPatient->addRow("Age du patient", spinBox_age);
 
-        QVBoxLayout *vbox3 = new QVBoxLayout;
-        vbox3->addWidget(lineEdit4);
-        vbox3->addWidget(lineEdit5);
+   /*----Morphologie----*/
+   QSpinBox *spinBox_poid = new QSpinBox(m_pageReglagesPatient);
+          spinBox_poid->setSuffix(" Kg");
+          spinBox_poid->setRange(0, 250);
+    //spinBox_age->setPlaceholderText("Poid du patient");
+    layoutReglagesPatient->addRow("Poid du patient", spinBox_poid);
 
-        page3->setLayout(vbox3);
+    QSpinBox *spinBox_taille = new QSpinBox(m_pageReglagesPatient);
+           spinBox_taille->setSuffix(" cm");
+           spinBox_taille->setRange(0, 250);
+    // spinBox_taille->setPlaceholderText("Taille du patient");
+     layoutReglagesPatient->addRow("Taille du patient", spinBox_age);
 
+  QPushButton * nextButton = new QPushButton("Suivant", m_pageReglagesPatient);
+  layoutReglagesPatient->addWidget(nextButton);
+  QObject::connect(nextButton, SIGNAL(clicked(bool)), this, SLOT(_patientNext()));
 
-        //page 4 = Validation
-        QPushButton *bouton= new QPushButton("Validation");
-        QPushButton *autreBouton = new QPushButton("Charger configuration");
-        autreBouton->move(100, 0);
+  QPushButton * chargerButton = new QPushButton("Charger patient", m_pageReglagesPatient);
+  layoutReglagesPatient->addWidget(chargerButton);
+}
 
-        QVBoxLayout *vbox4 = new QVBoxLayout;
-        vbox4->addWidget(bouton);
-        vbox4->addWidget(autreBouton);
+//réglages examen
+void FenPrincipale::_setupReglagesExamen()
+{
+  //layout de la page
+  QFormLayout * layoutReglagesExamen = new QFormLayout(m_pageReglagesExamen);
 
-        page4->setLayout(vbox4);
+  m_pageReglagesExamen->setLayout(layoutReglagesExamen);
 
+  /*----liste des positions patients----*/
+  QStringList positionsPatients_items;
+  positionsPatients_items.append("Debout");
+  positionsPatients_items.append("Allongé");
+  layoutReglagesExamen->addRow("Position du patient :",positionsPatients_widget);
 
 
-    // 4 : ajouter les onglets au QTabWidget, en indiquant la page qu'ils contiennent
-    onglets->addTab(page1, "Patient");
-    onglets->addTab(page2, "Examen");
-    onglets->addTab(page3, "Opérateur");
-    onglets->addTab(page4, "Validation");
+  /*----liste des etats----*/
+  QStringList listeEtats_items;
+  listeEtats_items.append("Repos");
+  listeEtats_items.append("Contraction");
+  listeEtats_items.append("Extension");
+  layoutReglagesExamen->addRow("État du muscle / activité demandée:",listeEtats_widget);
 
-    setCentralWidget(zoneCentrale);
 
+  /*----localisation----*/
+  QStringList localisation_items;
+  localisation_items.append("Bras");
+  localisation_items.append("Mollet");
+  localisation_items.append("Ventre");
+  layoutReglagesExamen->addRow("Localisation de l'examen:", localisation_widget);
+
+  QPushButton * nextButton = new QPushButton("Suivant", m_pageReglagesExamen);
+  layoutReglagesExamen->addWidget(nextButton);
+  QObject::connect(nextButton, SIGNAL(clicked(bool)), this, SLOT(_examenNext()));
+
+  QPushButton * previousButton = new QPushButton("Précedent", m_pageReglagesExamen);
+  layoutReglagesExamen->addWidget(previousButton);
+  QObject::connect(previousButton, SIGNAL(clicked(bool)), this, SLOT(_examenPrevious()));
+
+}
+
+//réglages médecins
+void FenPrincipale::_setupReglagesMedecin()
+{
+  //layout de la page
+  QFormLayout * layoutReglagesMedecin = new QFormLayout(m_pageReglagesMedecin);
+
+  m_pageReglagesMedecin->setLayout(layoutReglagesMedecin);
+
+  /*----liste des opérateurs----*/
+  QStringList listeOperateurs_items;
+  listeOperateurs_items.append("Monsieur Stark");
+  listeOperateurs_items.append("Madame Potts");
+  layoutReglagesMedecin->addRow("Opérateur :",listeOperateurs_widget);
+
+
+  /*----liste des prescripteurs----*/
+  QStringList listePrescripteurs_items;
+  listePrescripteurs_items.append("Monsieur Wayne");
+  listePrescripteurs_items.append("Madame Kyle");
+  layoutReglagesMedecin->addRow("Prescripteur :",listePrescripteurs_widget);
+
+
+  /*----liste des réalisateurs----*/
+
+  QStringList listeRealisateurs_items;
+  listeRealisateurs_items.append("Monsieur Rogers");
+  listeRealisateurs_items.append("Madame Carter");
+  layoutReglagesMedecin->addRow("Réalisateur :",listeRealisateurs_widget);
+
+
+  QPushButton * previousButton = new QPushButton("Précedent", m_pageReglagesMedecin);
+  layoutReglagesMedecin->addWidget(previousButton);
+  QObject::connect(previousButton, SIGNAL(clicked(bool)), this, SLOT(_medecinPrevious()));
+}
+
+
+//sauvegarder
+void FenPrincipale::_setupSauvegarder()
+{
+  QVBoxLayout * layoutSauvegarder = new QVBoxLayout(m_pageSauvegarder);
+  layoutSauvegarder->setAlignment(Qt::AlignTop);
+
+  QPushButton * boutonSauvegarder = new QPushButton("Sauvegarder", m_pageSauvegarder);
+  layoutSauvegarder->addWidget(boutonSauvegarder);
+
+  QPushButton * boutonCharger = new QPushButton("Charger configuration", m_pageSauvegarder);
+  layoutSauvegarder->addWidget(boutonCharger);
 }
