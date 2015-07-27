@@ -164,7 +164,7 @@ void FenPrincipale::_setupReglagesExamen()
   QStringList positionsPatients_items;
   positionsPatients_items.append("Debout");
   positionsPatients_items.append("Allongé");
-  ExtensibleListeWidget * positionsPatients_widget = new ExtensibleListeWidget("", positionsPatients_items, m_pageReglagesExamen);
+  ExtensibleListeWidget * positionsPatients_widget = new ExtensibleListeWidget("Ajouter une position patient", positionsPatients_items, m_pageReglagesExamen);
   layoutReglagesExamen->addRow("Position du patient :",positionsPatients_widget);
 
 
