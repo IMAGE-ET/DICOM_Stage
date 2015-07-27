@@ -116,13 +116,23 @@ void FenPrincipale::_setupReglagesPatient()
   layoutReglagesPatient->addRow("Numéro INSEE", lineEdit_INSEEPatient);
 
   /*----Sexe----*/
-  QGroupBox *groupbox_sexe = new QGroupBox("Sexe du patient");
-  layoutReglagesPatient->addRow("Sexe du patient", groupbox_sexe );
-  QRadioButton *Femme = new QRadioButton("Femme");
-  QRadioButton *Homme = new QRadioButton("Homme");
-  QRadioButton *Autre = new QRadioButton("Autre");
+  QWidget * sexe_widget = new QWidget(m_pageReglagesPatient);
+  QHBoxLayout * sexe_layout = new QHBoxLayout(sexe_widget);
 
-  Femme->setChecked(true);
+  QRadioButton * buttonSexeFemme = new QRadioButton("Femme", sexe_widget);
+  QRadioButton * buttonSexeHomme = new QRadioButton("Homme", sexe_widget);
+  QRadioButton * buttonSexeAutre = new QRadioButton("Autre", sexe_widget);
+
+  sexe_layout->addWidget(buttonSexeFemme);
+  sexe_layout->addWidget(buttonSexeHomme);
+  sexe_layout->addWidget(buttonSexeAutre);
+
+  QButtonGroup * sexe_buttonGroup = new QButtonGroup(m_pageReglagesPatient);
+  sexe_buttonGroup->addButton(buttonSexeFemme);
+  sexe_buttonGroup->addButton(buttonSexeHomme);
+  sexe_buttonGroup->addButton(buttonSexeAutre);
+
+  layoutReglagesPatient->addRow("Sexe du patient", sexe_widget);
 
   /*----Age----*/
   QSpinBox *spinBox_age = new QSpinBox(m_pageReglagesPatient);
