@@ -108,8 +108,8 @@ void FenPrincipale::_setupReglagesPatient()
   layoutReglagesPatient->addRow("Nom du Patient", lineEdit_nomPatient);
 
   QLineEdit * lineEdit_prenomPatient = new QLineEdit(m_pageReglagesPatient);
-  lineEdit_prenomPatient->setPlaceholderText("Préom du Patient");
-  layoutReglagesPatient->addRow("Préom du Patient", lineEdit_prenomPatient);
+  lineEdit_prenomPatient->setPlaceholderText("Prénom du Patient");
+  layoutReglagesPatient->addRow("Prénom du Patient", lineEdit_prenomPatient);
 
   QLineEdit * lineEdit_INSEEPatient = new QLineEdit(m_pageReglagesPatient);
   lineEdit_INSEEPatient->setPlaceholderText("Numéro INSEE");
@@ -117,7 +117,7 @@ void FenPrincipale::_setupReglagesPatient()
 
   /*----Sexe----*/
   QGroupBox *groupbox_sexe = new QGroupBox("Sexe du patient");
-  layoutReglagesPatient->addRow("Sexe du patien", groupbox_sexe );
+  layoutReglagesPatient->addRow("Sexe du patient", groupbox_sexe );
   QRadioButton *Femme = new QRadioButton("Femme");
   QRadioButton *Homme = new QRadioButton("Homme");
   QRadioButton *Autre = new QRadioButton("Autre");
@@ -135,8 +135,8 @@ void FenPrincipale::_setupReglagesPatient()
    QSpinBox *spinBox_poid = new QSpinBox(m_pageReglagesPatient);
           spinBox_poid->setSuffix(" Kg");
           spinBox_poid->setRange(0, 250);
-    //spinBox_age->setPlaceholderText("Poid du patient");
-    layoutReglagesPatient->addRow("Poid du patient", spinBox_poid);
+    //spinBox_age->setPlaceholderText("Poids du patient");
+    layoutReglagesPatient->addRow("Poids du patient", spinBox_poid);
 
     QSpinBox *spinBox_taille = new QSpinBox(m_pageReglagesPatient);
            spinBox_taille->setSuffix(" cm");
